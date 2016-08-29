@@ -1,3 +1,3 @@
 <h1><%=game.name %></h1>
-
-  <%= link_to "Destroy", platform_game_path(game.platform, game), method: :delete, data: {confirm: "Are you sure"} %>
+<%= image_tag game.game_img.url(:game_index) %>
+<%= link_to "Destroy", platform_game_path(game.platform, game), method: :delete, data: {confirm: "Are you sure"} %>
