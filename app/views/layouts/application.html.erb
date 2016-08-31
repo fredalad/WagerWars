@@ -17,6 +17,8 @@
         </div>
        <ul class="nav navbar-nav">
         <% if user_signed_in? %>
+          <li><%= image_tag current_user.user_icon.url(:user_show)%></li>
+          <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
           <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
         <% else %>
           <li><%= link_to "Log In", new_user_session_path%></li>
@@ -40,11 +42,6 @@
         </ul>
       </div>
     </nav>
-
-
-
-
-
 
       <p class="notice"><%= notice %></p>
       <p class="alert"><%= alert %></p>
