@@ -1,6 +1,8 @@
 <h1><%= @platform.name%></h1>
+<% if user_signed_in? && is_admin?(current_user.email) %>
 
-<%= link_to "Destroy", platform_path(@platform), method: :delete, data: {confirm: "Are you sure?"} %>
+  <%= link_to "Destroy", platform_path(@platform), method: :delete, data: {confirm: "Are you sure?"} %>
 
-<%= link_to "Add game", new_platform_game_path(@platform.id) %>
+  <%= link_to "Add game", new_platform_game_path(@platform.id) %>
+<% end %>
 <%=render @platform.game %>

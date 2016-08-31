@@ -1,17 +1,55 @@
+
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>WagerWars</title>
-    <%= csrf_meta_tags %>
+  <html>
+    <head>
+      <title>WagerWars</title>
+      <%= csrf_meta_tags %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+      <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
 
-  <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <body>
+    <nav class="navbar navbar-default">
+      <div class="containter">
+        <div class="navbar-header">
+          <%= link_to "Wager Wars", root_path, class: "navbar-brand" %>
+        </div>
+       <ul class="nav navbar-nav">
+        <% if user_signed_in? %>
+          <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
+        <% else %>
+          <li><%= link_to "Log In", new_user_session_path%></li>
+          <li><%= link_to "Sign Up", new_user_registration_path %></li>
 
-    <%= yield %>
-  </body>
+        <% end %>
+
+       </ul>
+      </div>
+    </nav>
+    <nav class="navbar navbar-default">
+      <div class="containter">
+        <ul class="nav navbar-nav">
+          <% Platform.all.each do |platform| %>
+            <li><%= link_to platform.name, platform_path(platform.id), class: "navbar-brand"%></li>
+            <% end %>
+          <% if user_signed_in? && is_admin?(current_user.email) %>
+            <li><%= link_to "Add Platform", new_platform_path %></li>
+          <% end %>
+
+        </ul>
+      </div>
+    </nav>
+
+
+
+
+
+
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+
+      <%= yield %>
+
+    </body>
 </html>
