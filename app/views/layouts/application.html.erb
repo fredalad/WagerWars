@@ -19,6 +19,10 @@
         <% if user_signed_in? %>
           <li><%= image_tag current_user.user_icon.url(:user_show)%></li>
           <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+          <li><%= link_to "Add Team", new_team_path%> </li>
+          <% Team.all.each do |team| %>
+            <li><%=link_to team.name, team_path(team.id) %></li>
+          <% end %>
           <li><%= link_to "Sign Out", destroy_user_session_path, method: :delete%></li>
         <% else %>
           <li><%= link_to "Log In", new_user_session_path%></li>
