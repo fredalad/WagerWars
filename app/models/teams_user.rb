@@ -1,4 +1,4 @@
 class TeamsUser < ApplicationRecord
-  belongs_to :user
-  belongs_to :team
+  belongs_to :users
+  belongs_to :teams
 end

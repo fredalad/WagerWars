@@ -1,4 +1,4 @@
-<%= simple_form_for ([@platform, @platform.game.build]) do |f| %>
+<%= simple_form_for ([@platform, @platform.games.build]) do |f| %>
   <%= f.file_field :game_img %>
   <%= f.input :name %>
   <%= f.button :submit %>

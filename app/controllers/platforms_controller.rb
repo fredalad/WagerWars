@@ -21,6 +21,11 @@ class PlatformsController < ApplicationController
     end
   end
 
+  def destroy
+    @platform.destroy
+    redirect_to root_path
+  end
+
   private
     def platform_params
       params.require(:platform).permit(:name)

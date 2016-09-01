@@ -1,3 +1,3 @@
 class Platform < ApplicationRecord
-   has_many :game
+   has_many :games
 end
