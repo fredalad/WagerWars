@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   before_action :find_platform
-  before_action :find_game, only: [:destroy]
+  before_action :find_game, only: [:show, :destroy]
 
   def new
     @game = Game.new

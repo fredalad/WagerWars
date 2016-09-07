@@ -1,0 +1,5 @@
+<%= simple_form_for ([@platform, @game, @ladder]) do |f| %>
+  <%= f.input :name %>
+  <%= f.input :match_player_count %>
+  <%= f.button :submit %>
+<% end %>

@@ -1,4 +1,4 @@
-<h1><%= image_tag game.game_img.url(:game_index) %></h1>
+<h1><%= link_to (image_tag game.game_img.url(:game_index)), platform_game_path(game.platform, game) %></h1>
 <% if user_signed_in? && is_admin?(current_user.email) %>
   <%= link_to "Destroy", platform_game_path(game.platform, game), method: :delete, data: {confirm: "Are you sure"} %>
 <% end %>

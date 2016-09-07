@@ -1,5 +1,10 @@
 class TeamsController < ApplicationController
   before_action :find_team, only: [:destroy, :show]
+  before_action :find_platform , only: [:new,:create]
+  before_action :find_game , only: [:new, :create]
+  before_action :find_ladder , only: [:new,:create]
+
+
 
   def new
     @team = Team.new
@@ -7,12 +12,14 @@ class TeamsController < ApplicationController
 
   def create
     @team = Team.new(team_params)
+    @team.ladder_id = @ladder.id
+    @team.ladder_name = @ladder.name
     @user = User.where(:id => current_user.id)
     @team.users << @user
-    if @team.save
+    if @team.save!
       redirect_to team_path(@team.id)
     else
-      redirect_to new_user_registration_path
+      redirect_to root_path
     end
   end
 
@@ -32,5 +39,14 @@ class TeamsController < ApplicationController
 
     def find_team
       @team = Team.find(params[:id])
+    end
+    def find_ladder
+      @ladder = Ladder.find(params[:ladder_id])
+    end
+    def find_game
+      @game = Game.find(params[:game_id])
+    end
+    def find_platform
+      @platform = Platform.find(params[:platform_id])
     end
 end

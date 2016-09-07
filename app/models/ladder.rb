@@ -1,5 +1,5 @@
 class Ladder < ApplicationRecord
-  belongs_to :games
+  belongs_to :game
   has_many :teams
 
 end

@@ -1,0 +1,9 @@
+<h1><%= @game.name%></h1>
+
+<% if user_signed_in? && is_admin?(current_user.email) %>
+
+  <%= link_to "Destroy", platform_game_path(@game), method: :delete, data: {confirm: "Are you sure?"} %>
+
+  <%= link_to "Add Ladder", new_platform_game_ladder_path(@platform.id,@game.id) %>
+<% end %>
+<%=render @game.ladders %>
