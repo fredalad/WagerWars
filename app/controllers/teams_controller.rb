@@ -1,10 +1,8 @@
 class TeamsController < ApplicationController
   before_action :find_team, only: [:destroy, :show]
-  before_action :find_platform , only: [:new,:create]
-  before_action :find_game , only: [:new, :create]
-  before_action :find_ladder , only: [:new,:create]
-
-
+  before_action :find_platform, only: [:new, :create]
+  before_action :find_game, only: [:new, :create]
+  before_action :find_ladder, only: [:new,:create]
 
   def new
     @team = Team.new
@@ -22,6 +20,8 @@ class TeamsController < ApplicationController
       redirect_to root_path
     end
   end
+
+
 
   def show
   end
