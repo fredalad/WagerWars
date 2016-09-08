@@ -1,5 +1,5 @@
 class TeamsController < ApplicationController
-  before_action :find_team, only: [:destroy, :show]
+  before_action :find_team, only: [:destroy, :show, :update]
   before_action :find_platform, only: [:new, :create]
   before_action :find_game, only: [:new, :create]
   before_action :find_ladder, only: [:new,:create]
@@ -12,22 +12,25 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.ladder_id = @ladder.id
     @team.ladder_name = @ladder.name
-    @user = User.where(:id => current_user.id)
-    @team.users << @user
+    @team.user_id = [current_user.id]
     if @team.save!
       redirect_to team_path(@team.id)
     else
       redirect_to root_path
     end
   end
+  def update
 
-
+  end
 
   def show
+     @user = Array.new
+     @team.user_id.each do |value|
+      @user << User.find(value)
+    end
   end
 
   def destroy
-    @team.users.destroy_all
     @team.destroy
     redirect_to root_path
   end
