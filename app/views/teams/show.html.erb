@@ -5,6 +5,6 @@
   <h1><%= value.username%></h1>
 <% end %>
 
-<h1><%= link_to "Add Players", edit_team_path(@team.id)%></h1>
+<h1><%= link_to "Add Players", team_users_path(@team.id)%></h1>
 <h1><%= link_to "Destroy", team_path(@team), method: :delete, data: {confirm: "Are you sure?"} %> </h1>
 
