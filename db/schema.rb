@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160908180953) do
+ActiveRecord::Schema.define(version: 20160909215441) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -29,6 +29,17 @@ ActiveRecord::Schema.define(version: 20160908180953) do
     t.integer  "match_player_count"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+  end
+
+  create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.integer  "source_user_id"
+    t.integer  "desination_user_id"
+    t.string   "source_username"
+    t.string   "desination_username"
+    t.string   "subject"
+    t.text     "body",                limit: 65535
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
   end
 
   create_table "platforms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

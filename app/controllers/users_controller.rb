@@ -2,7 +2,10 @@ class UsersController < ApplicationController
   before_action :find_team
 
   def index
-    @users = User.search(params[:search])
+    if params[:search]
+      @users = User.search(params[:search])
+      @search_flag = true
+    end
   end
 
   private

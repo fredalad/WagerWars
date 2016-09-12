@@ -1,6 +1,8 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :messages
+
   serialize :team_id, Array
   devise :database_authenticatable, :registerable,
         :recoverable, :rememberable, :trackable, :validatable
@@ -10,8 +12,8 @@ class User < ApplicationRecord
 
   def self.search(username)
     if username != ''
-        where('LOWER(username) LIKE ?', "%#{username}%")
+      where('LOWER(username) LIKE ?', "%#{username}%")
     end
-end
+  end
 
 end

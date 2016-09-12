@@ -1,11 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  #root 'platforms#index'
-  root 'users#index'
+  root 'platforms#index'
+
+  resources :users do
+    resources :messages
+  end
+
+ # root 'users#index'
   resources :teams do
-   resources :users
- end
+    resources :users
+  end
 
   resources :platforms do
     resources :games do

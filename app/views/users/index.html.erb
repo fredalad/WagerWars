@@ -1,12 +1,14 @@
 <%= form_tag team_users_path, :method => 'get', :id => 'users_search' do %>
     <p>
-        <%= text_field_tag :search, params[:search] %>
-        <%= submit_tag "Search", :name => nil %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
     </p>
 <% end %>
-<% if @users != nil %>
+<% if @users != nil && @users.size != 0 && %>
   <% @users.each do |user| %>
     <h1><%= user.email%>
-    <h1><%= link_to "Add Player", edit_team_user_path(@team.id, user.id) %>
+    <h1><%= link_to "Add Player", new_user_message_path(@team.id, user.id, :test => "true") %>
   <% end %>
+<% elsif @search_flag %>
+  <h1> No Users Found</h1>
 <% end %>
