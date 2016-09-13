@@ -1,1 +1,3 @@
-<h1>Your Messages</h1>
+<% @message.each do |message| %>
+  <h1><%= message.subject%><h1>
+<% end %>
