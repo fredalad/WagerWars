@@ -13,19 +13,23 @@ class TeamsController < ApplicationController
     @team.ladder_id = @ladder.id
     @team.ladder_name = @ladder.name
     @team.user_id = [current_user.id]
-    if @team.save!
+    if @team.save
       redirect_to team_path(@team.id)
     else
       redirect_to root_path
     end
   end
+
+  def edit
+  end
+
   def update
 
   end
 
   def show
-     @user = Array.new
-     @team.user_id.each do |value|
+    @user = Array.new
+    @team.user_id.each do |value|
       @user << User.find(value)
     end
   end

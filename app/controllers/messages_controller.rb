@@ -1,11 +1,16 @@
 class MessagesController < ApplicationController
   before_action :find_user
   before_action :find_team, only: [:new]
-  before_action :find_message, only: [:show]
+  before_action :find_message, only: [:show, :destroy]
 
   def index
-    @message = Message.where(desination_user_id: current_user.id)
+    if params[:message] == "show_read"
+      @message = Message.where(desination_user_id: current_user.id)
+    else
+      @message = Message.where(desination_user_id: current_user.id, read: false)
+    end
   end
+
   def new
     @message = Message.new
     flash[:team_id] = @team.id
@@ -22,9 +27,20 @@ class MessagesController < ApplicationController
     @message.desination_username = @user.username
     @message.subject = "Team Invite"
     @message.body = "[insert team name] wants you to join their team"
+    @message.read = false
     if @message.save
       redirect_to root_path
     end
+  end
+
+  def show
+    @message.read = true
+    @message.save
+  end
+
+  def destroy
+    @message.destroy
+    redirect_to :back
   end
 
   private

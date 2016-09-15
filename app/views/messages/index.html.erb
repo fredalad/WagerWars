@@ -1,3 +1,7 @@
+<h1>Your Messages</h1>
+<h1><%=  link_to "Show read messages", user_messages_path(current_user.id, :message => "show_read")%></h1>
 <% @message.each do |message| %>
-  <h1><%= message.subject%><h1>
+  <h1><%= link_to message.subject, user_message_path(@user.id, message.id) %><h1>
+
+  <h1><%= button_to "Delete Message",user_message_path(@user.id, message.id) , method: :delete, data: {confirm: "Are you sure"} %></h1>
 <% end %>
