@@ -1,4 +1,4 @@
-<h1><%= ladder.name%></h1>
+<h1>ladder name: <%= ladder.name%></h1>
 <%= render ladder.teams %>
 <li><%= link_to "Add Team", new_platform_game_ladder_team_path(@platform.id,@game.id, ladder.id)%> </li>
 

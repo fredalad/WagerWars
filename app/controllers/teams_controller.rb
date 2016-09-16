@@ -12,9 +12,15 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.ladder_id = @ladder.id
     @team.ladder_name = @ladder.name
-    @team.user_id = [current_user.id]
+    @team.user_id << current_user.id
+    @team.leader = current_user.username
     if @team.save
-      redirect_to team_path(@team.id)
+      current_user.team_id << @team.id
+      if current_user.save
+        redirect_to team_path(@team.id)
+      else
+        redirect_to root_path
+      end
     else
       redirect_to root_path
     end

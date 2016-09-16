@@ -1,3 +1,9 @@
+<% @roster.each do |r| %>
+  <% if @team.leader == current_user.username %>
+    <h1><%=r.username%></h1>
+    <h1><%= link_to "Remove Player", team_user_path(@team, r.id), method: :delete, data: {confirm: "Are you sure?"} %></h1>
+    <% end %>
+  <% end %>
 <%= form_tag team_users_path, :method => 'get', :id => 'users_search' do %>
     <p>
       <%= text_field_tag :search, params[:search] %>
