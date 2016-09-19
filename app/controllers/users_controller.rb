@@ -18,7 +18,13 @@ class UsersController < ApplicationController
 
   def update
     @team.user_id << @user.id
+    @team.roster_count += 1
     @user.team_id << @team.id
+    if @user.team_count == nil
+      @user.team_count = 1
+    else
+      @user.team_count += 1
+    end
     if @team.save && @user.save
       redirect_to root_path
     else

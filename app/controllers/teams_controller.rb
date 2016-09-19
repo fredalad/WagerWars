@@ -13,7 +13,15 @@ class TeamsController < ApplicationController
     @team.ladder_id = @ladder.id
     @team.ladder_name = @ladder.name
     @team.user_id << current_user.id
+    @team.wins = 0
+    @team.losses = 0
+    @team.roster_count = 1
     @team.leader = current_user.username
+    if current_user.team_count == nil
+      current_user.team_count = 1
+    else
+      current_user.team_count += 1
+    end
     if @team.save
       current_user.team_id << @team.id
       if current_user.save
@@ -41,6 +49,12 @@ class TeamsController < ApplicationController
   end
 
   def destroy
+    @user = User.all.select {|u| u.team_id.include? @team.id }
+    @user.each do |user|
+      user.team_id.delete(@team.id)
+      user.team_count -= 1
+      user.save
+    end
     @team.destroy
     redirect_to root_path
   end

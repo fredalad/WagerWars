@@ -1,5 +1,5 @@
+<h1>Team Name: <%= @team.name%></h1>
 <% @team.user_id.each  do |value| %>
-  <h1><%= value%></h1>
 <% end %>
 <% @user.each  do |value| %>
   <h1><%= value.username%></h1>
@@ -7,4 +7,3 @@
 
 <h1><%= link_to "Edit Roster", team_users_path(@team.id)%></h1>
 <h1><%= link_to "Destroy", team_path(@team), method: :delete, data: {confirm: "Are you sure?"} %> </h1>
-
