@@ -1,4 +1,9 @@
 <h1>Your Messages</h1>
+<% if Rails.env.production? %>
+  <h1>Production</h1>
+<% else %>
+  <h1>Development</h1>
+<% end %>
 <h1><%=  link_to "Show read messages", user_messages_path(current_user.id, :message => "show_read")%></h1>
 <% @message.each do |message| %>
   <h1><%= link_to message.subject, user_message_path(@user.id, message.id) %><h1>
