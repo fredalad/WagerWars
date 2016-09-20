@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
  # root 'users#index'
   resources :teams do
+    resources :matches
     resources :users
   end
 
