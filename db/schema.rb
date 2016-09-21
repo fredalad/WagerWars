@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920173549) do
+ActiveRecord::Schema.define(version: 20160921215759) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20160920173549) do
     t.boolean  "expired"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.integer  "best_of"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -109,6 +110,7 @@ ActiveRecord::Schema.define(version: 20160920173549) do
     t.string   "ps4_gt"
     t.string   "lol_summoner_name"
     t.text     "team_id",                limit: 65535
+    t.string   "time_zone"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
