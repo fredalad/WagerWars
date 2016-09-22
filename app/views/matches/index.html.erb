@@ -1,4 +1,5 @@
 <h1><%= link_to "Create Match", new_team_match_path(@team.id)%></h1>
+<h1><%=Time.zone.now%></h1>
 <% @match.each do |match| %>
   <h3><%=match.match_time%></h3>
   <% if match.chlg_team_id == @team.id %>
