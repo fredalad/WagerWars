@@ -7,6 +7,8 @@
     <%= f.file_field :user_icon %>
     <%= f.input :email, required: true, autofocus: true %>
     <%= f.input :username, required: true %>
+   <%= f.input :time_zone, :collections => ['AST', 'EST', 'CST', 'MST',
+      'PST', 'AKST', 'HST', 'HAST','SST', 'CHST' ], required: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
       <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>

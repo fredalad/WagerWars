@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160921215759) do
+ActiveRecord::Schema.define(version: 20160921225258) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20160921215759) do
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
     t.integer  "best_of"
+    t.string   "time_zone"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

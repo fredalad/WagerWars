@@ -1,6 +1,11 @@
 class MatchesController < ApplicationController
-  before_action :find_team, only: [:new, :create]
+  before_action :find_team
+  before_action :find_match, only: [:show]
 
+  def index
+    @match = Match.where(ladder_id: @team.ladder_id).where("match_time > ?",
+      Time.zone.now)
+  end
   def new
     @match = Match.new
   end
@@ -13,14 +18,21 @@ class MatchesController < ApplicationController
     @match.challange = false
     @match.completed = false
     @match.disputed = false
-    @match.acpt_team_wins = @match.hours.to_i
-    @match.match_time = Time.zone.local(Time.zone.now.year, Time.zone.now.month,
-      Time.zone.now.day, @match.hours.to_i, @match.minutes.to_i)
+    if @match.am_pm == 'PM' unless @match.hours == 12
+      @match.hours = @match.hours.to_i + 12
+    elsif @match.am_pm == 'AM' && @match.hours == 12
+      @match.hours == 24
+
+    end
+    @match.time_zone = current_user.time_zone
+    @match.match_time = Time.parse(@match.hours.to_s + ":" + @match.minutes).utc
     if @match.save
-      redirect_to root_path
+     redirect_to team_matches_path(@team.id)
     else
       redirect_to root_path
     end
+  end
+  def show
   end
   private
     def match_params
@@ -28,5 +40,8 @@ class MatchesController < ApplicationController
     end
     def find_team
       @team = Team.find(params[:team_id])
+    end
+    def find_match
+      @match = Match.find(params[:id])
     end
 end
