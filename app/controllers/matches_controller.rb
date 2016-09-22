@@ -24,7 +24,7 @@ class MatchesController < ApplicationController
     #  @match.hours == 24
 
     #end
-    @match.match_time = Time.parse(@match.hours.to_s + ":" + @match.minutes)
+    @match.match_time = Time.zone.parse(@match.hours.to_s + ":" + @match.minutes)
     if @match.save
      redirect_to team_matches_path(@team.id)
     else
