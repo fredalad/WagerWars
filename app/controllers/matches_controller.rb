@@ -18,12 +18,12 @@ class MatchesController < ApplicationController
     @match.challange = false
     @match.completed = false
     @match.disputed = false
-    if @match.am_pm == 'PM' unless @match.hours == 12
-      @match.hours = @match.hours.to_i + 12
-    elsif @match.am_pm == 'AM' && @match.hours == 12
-      @match.hours == 24
+    #if @match.am_pm == 'PM' unless @match.hours == 12
+     # @match.hours = @match.hours.to_i + 12
+    #elsif @match.am_pm == 'AM' && @match.hours == 12
+    #  @match.hours == 24
 
-    end
+    #end
     @match.time_zone = current_user.time_zone
     @match.match_time = Time.parse(@match.hours.to_s + ":" + @match.minutes).utc
     if @match.save
