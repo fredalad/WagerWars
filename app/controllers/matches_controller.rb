@@ -3,8 +3,9 @@ class MatchesController < ApplicationController
   before_action :find_match, only: [:show]
 
   def index
-    @match = Match.where(ladder_id: @team.ladder_id).where("match_time > ?",
-      Time.zone.now)
+    @match = Match.all
+    #Match.where(ladder_id: @team.ladder_id).where("match_time > ?",
+     # Time.zone.now)
   end
   def new
     @match = Match.new
@@ -24,7 +25,8 @@ class MatchesController < ApplicationController
     #  @match.hours == 24
 
     #end
-    @match.match_time = Time.zone.parse(@match.hours.to_s + ":" + @match.minutes)
+    Time.zone = "UTC"
+    @match.match_time = Time.parse(@match.hours + ":" + @match.minutes)
     if @match.save
      redirect_to team_matches_path(@team.id)
     else
