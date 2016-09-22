@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922175415) do
+ActiveRecord::Schema.define(version: 20160922181644) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20160922175415) do
     t.boolean  "challange"
     t.boolean  "completed"
     t.boolean  "disputed"
-    t.time     "match_time"
+    t.datetime "match_time"
     t.datetime "post_expire_time"
     t.boolean  "expired"
     t.datetime "created_at",         null: false
