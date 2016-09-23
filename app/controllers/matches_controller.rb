@@ -25,16 +25,14 @@ class MatchesController < ApplicationController
 
     #end
     #Time.zone = "UTC"
-
+      Time.use_zone("Eastern Time (US \& Canada)") {
       time_entered = Time.new(Time.zone.now.year.to_i,
                               Time.zone.now.month.to_i,
                               23,
                               @match.hours.to_i,
                               @match.minutes.to_i)
-      Time.zone = current_user.time_zone
       @match.acpt_team_name = Time.zone
-      the_offset = Time.zone.utc_offset
-
+      the_offset = Time.parse(time_entered.to_s).in_time_zone(current_user.time_zone).utc_offset
       @match.acpt_team_wins = the_offset
 
       new_time = Time.new(Time.zone.now.year.to_i,
@@ -43,7 +41,7 @@ class MatchesController < ApplicationController
                           @match.hours.to_i,
                           @match.minutes.to_i, 0, the_offset)
       @match.match_time = new_time
-
+}
 
     @match.acpt_team_wins = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z').utc_offset
     @match.match_time = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z')
