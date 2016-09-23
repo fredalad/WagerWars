@@ -33,7 +33,7 @@ class MatchesController < ApplicationController
                               @match.minutes.to_i)
       Time.zone = current_user.time_zone
       @match.acpt_team_name = Time.zone
-      the_offset = Time.zone.parse(time_entered.to_s).utc_offset
+      the_offset = Time.zone.utc_offset
 
       @match.acpt_team_wins = the_offset
 
