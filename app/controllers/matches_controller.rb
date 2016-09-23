@@ -25,8 +25,8 @@ class MatchesController < ApplicationController
 
     #end
     Time.zone = "UTC"
-    @match.match_time = Time.parse(@match.hours.to_s + ":" + @match.minutes).getutc
-        if @match.save
+    @match.match_time = Time.strptime(@match.hours.to_s + ":" + @match.minutes,'%H:%M').utc
+      if @match.save
      redirect_to team_matches_path(@team.id)
     else
       redirect_to root_path
