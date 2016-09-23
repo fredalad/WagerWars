@@ -25,7 +25,7 @@ class MatchesController < ApplicationController
 
     #end
     #Time.zone = "UTC"
-      the_offset = DateTime.parse(@match.hours.to_s + ":" + @match.minutes.to_s, '%H:%M').in_time_zone(current_user.time_zone).utc_offset
+      @match.match_time = DateTime.parse(@match.hours.to_s + ":" + @match.minutes.to_s, '%H:%M').in_time_zone(current_user.time_zone).utc_offset
 
       # Time.use_zone("Eastern Time (US \& Canada)") {
       # time_entered = Time.new(Time.zone.now.year.to_i,
