@@ -25,7 +25,7 @@ class MatchesController < ApplicationController
 
     #end
     #Time.zone = "UTC"
-      @match.match_time = DateTime.parse(@match.hours.to_s + ":" + @match.minutes.to_s, '%H:%M').in_time_zone(current_user.time_zone).utc_offset
+      @match.match_time = DateTime.parse(@match.hours.to_s + ":" + @match.minutes.to_s, '%H:%M').in_time_zone(current_user.time_zone)
 
       # Time.use_zone("Eastern Time (US \& Canada)") {
       # time_entered = Time.new(Time.zone.now.year.to_i,
@@ -44,9 +44,9 @@ class MatchesController < ApplicationController
       #                     @match.minutes.to_i, 0, the_offset)
       # @match.match_time = new_time
 #}
-
-    @match.acpt_team_wins = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z').utc_offset
-    @match.match_time = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z')
+    @match.acpt_team_wins = Time.now.in_time_zone(current_user.time_zone).utc_offset
+    #@match.acpt_team_wins = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z').utc_offset
+  #  @match.match_time = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z')
       if @match.save
      redirect_to team_matches_path(@team.id)
     else
