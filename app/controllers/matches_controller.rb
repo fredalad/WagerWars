@@ -18,37 +18,17 @@ class MatchesController < ApplicationController
     @match.challange = false
     @match.completed = false
     @match.disputed = false
-    #if @match.am_pm == 'PM' unless @match.hours == 12
-    @match.hours = @match.hours.to_i + 12
-    #elsif @match.am_pm == 'AM' && @match.hours == 12
-    #  @match.hours == 24
-
-    #end
-    #Time.zone = "UTC"
-      #@match.match_time = DateTime.parse(@match.hours.to_s + ":" + @match.minutes.to_s, '%H:%M').in_time_zone(current_user.time_zone)
-
-      # Time.use_zone("Eastern Time (US \& Canada)") {
-      # time_entered = Time.new(Time.zone.now.year.to_i,
-      #                         Time.zone.now.month.to_i,
-      #                         23,
-      #                         @match.hours.to_i,
-      #                         @match.minutes.to_i)
-      # @match.acpt_team_name = Time.zone
-      # the_offset = DateTime.parse(time_entered.to_s).in_time_zone(current_user.time_zone).utc_offset
-      # @match.acpt_team_wins = the_offset
-      @match.acpt_team_wins = Time.now.in_time_zone(current_user.time_zone).utc_offset
-      the_offset = Time.now.in_time_zone(current_user.time_zone).utc_offset
-      @match.match_time = Time.new(Time.zone.now.year.to_i,
-                           Time.zone.now.month.to_i,
-                           26,
-                           @match.hours.to_i,
-                           @match.minutes.to_i, 0, the_offset)
-      # @match.match_time = new_time
-#}
-  #  @match.acpt_team_wins = Time.now.in_time_zone(current_user.time_zone).utc_offset
-    #@match.acpt_team_wins = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z').utc_offset
-  #  @match.match_time = Time.strptime(@match.hours.to_s + ":" + @match.minutes + ":" + current_user.time_zone ,'%H:%M:%Z')
-      if @match.save
+    @match.hours = @match.hours.to_i
+    if (@match.am_pm == 'PM' && @match.hours != 12) || (@match.am_pm == 'AM' && @match.hours == 12)
+      @match.hours += 12
+    end
+    the_offset = Time.now.in_time_zone(current_user.time_zone).utc_offset
+    @match.match_time = Time.new(Time.zone.now.year.to_i,
+                         Time.zone.now.month.to_i,
+                         Time.zone.now.day,
+                         @match.hours,
+                         @match.minutes.to_i, 0, the_offset)
+    if @match.save
      redirect_to team_matches_path(@team.id)
     else
       redirect_to root_path
