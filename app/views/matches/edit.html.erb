@@ -1,0 +1,22 @@
+<h1>Edit Match</h1>
+<h1><%= params.inspect%></h1>
+<% if params[:match_status] == "report" %>
+<%= simple_form_for ([@team, @match]) do |f| %>
+    <% if @match.chlg_team_id == @team.id %>
+      <%= f.input :chlg_team_wins, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
+      <%= f.input :chlg_team_losses, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
+      <%= hidden_field_tag(:team, 'chlg') %>
+    <% else %>
+      <%= f.input :acpt_team_wins, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
+      <%= f.input :acpt_team_losses, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
+      <%= hidden_field_tag(:team, 'acpt') %>
+    <% end %>
+    <%= hidden_field_tag(:match_status, 'report') %>
+    <%= f.button :submit, "Report Score"%>
+  <% end %>
+<% else %>
+  <%= simple_form_for ([@team, @match]) do |f| %>
+    <%= hidden_field_tag(:match, 'accepted') %>
+    <%= f.button :submit, "Accept match"%>
+  <% end %>
+<% end %>

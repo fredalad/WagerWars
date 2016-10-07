@@ -1,10 +1,16 @@
 <h1><%= link_to "Create Match", new_team_match_path(@team.id)%></h1>
-<h1><%=Time.zone.now%></h1>
-<% @match.each do |match| %>
-  <h3><%=match.match_time%></h3>
-  <% if match.chlg_team_id == @team.id %>
+<% if @match.size == 0 %>
+  <h1>No available games</h1>
+  <% else %>
+    <% @match.each do |match| %>
+    <h3><%=match.match_time%></h3>
+    <% if match.chlg_team_id == @team.id %>
       <h3><%= link_to "View Match", team_match_path(@team.id, match.id)%></h3>
+      <h3><%= link_to "Remove Match", team_match_path(@team.id, match.id),
+       method: :delete, data: {confirm: "Are you sure"} %></h3>
     <% else %>
-      <h3><%= link_to "Accept Match", team_match_path(@team.id, match.id)%></h3>
+      <h3><%= link_to "Accept Match", edit_team_match_path(@team.id, match.id,:match => "accepted")%></h3>
     <%end %>
+  <% end %>
 <% end %>
+

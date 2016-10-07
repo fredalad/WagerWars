@@ -1,1 +1,4 @@
-<h1>Match</h1>
+<h1>View Match</h1>
+<% if @match.accepted #&& @match.match_time < Time.zone.now  #+ 15*60 < Time.zone.now%>
+  <h3><%= link_to "Report Score", edit_team_match_path(@team.id, @match.id, :match_status => "report")%></h3>
+<% end %>
