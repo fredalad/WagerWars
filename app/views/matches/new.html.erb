@@ -1,7 +1,2 @@
-<%= simple_form_for  ([@team, @match]) do |f| %>
-  <%= f.input :hours, :collection => 1..12, :include_blank => false %>
-  <%= f.input :minutes, :collection => (0..45).select {|x| x % 15 ==0}, :include_blank => false %>
-  <%= f.input :am_pm, :collection => ['AM', 'PM'], :include_blank => false %>
-  <%= f.input :best_of, :collection => (3..5).select {|x| x % 2 != 0}, :include_blank => false%>
-  <%= f.button :submit %>
-<% end %>
+<h1>Create Match</h1>
+<%= render 'form'%>

@@ -5,11 +5,11 @@
     <% if @match.chlg_team_id == @team.id %>
       <%= f.input :chlg_team_wins, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
       <%= f.input :chlg_team_losses, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
-      <%= hidden_field_tag(:team, 'chlg') %>
+      <%= f.hidden_field :chlg_team_reported, :value => true %>
     <% else %>
       <%= f.input :acpt_team_wins, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
       <%= f.input :acpt_team_losses, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
-      <%= hidden_field_tag(:team, 'acpt') %>
+      <%= f.hidden_field :acpt_team_reported, :value => true %>
     <% end %>
     <%= hidden_field_tag(:match_status, 'report') %>
     <%= f.button :submit, "Report Score"%>
