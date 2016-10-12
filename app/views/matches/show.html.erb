@@ -1,4 +1,10 @@
-<h1>View Match</h1>
+<h1>Viewing Match</h1>
 <% if @match.accepted #&& @match.match_time < Time.zone.now  #+ 15*60 < Time.zone.now%>
+  <% @setting.each do |setting|%>
+    <h1><%= setting.map_name%>, <%=setting.game_type%></h1>
+  <% end %>
   <h3><%= link_to "Report Score", edit_team_match_path(@team.id, @match.id, :match_status => "report")%></h3>
+  <%else %>
+  <h3>Waiting for someone to accept</h3>
 <% end %>
+

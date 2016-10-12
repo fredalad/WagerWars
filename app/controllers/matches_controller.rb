@@ -36,9 +36,13 @@ class MatchesController < ApplicationController
                          Time.zone.now.day,
                          @match.hours,
                          @match.minutes.to_i, 0, the_offset)
-    if @team.roster_count < @ladder.match_player_count
-      redirect_to new_team_match_path(@team.id, :error => "roster_size")
-     elsif @match.save
+
+    ##################comented for testing ###################3
+    #if @team.roster_count < @ladder.match_player_count
+    #  redirect_to new_team_match_path(@team.id, :error => "roster_size")
+    #################################################################
+
+     if @match.save # should be else if when above is uncommented
       redirect_to team_matches_path(@team.id)
      else
       redirect_to root_path
@@ -46,6 +50,10 @@ class MatchesController < ApplicationController
 
   end
   def show
+    @setting = Array.new
+    @match.setting_id.each do |value|
+      @setting << Setting.find(value)
+    end
   end
   def edit
     #render 'show'
@@ -55,8 +63,18 @@ class MatchesController < ApplicationController
       @match.acpt_team_id = @team.id
       @match.acpt_team_name = @team.name
       @match.accepted = true
-      @match.save
-      render 'show'
+      count = 0
+      @setting = Setting.where(ladder_id: @match.ladder_id).where(mlg_rules: @match.mlg_rules).order("RAND()")
+      @setting.each do |setting|
+        if count == @match.best_of
+          break
+        end
+        @match.setting_id << setting.id
+        count += 1
+      end
+      if @match.save
+        redirect_to team_match_path(@team.id, @match.id)
+      end
     elsif params[:match_status] == "report"
       ticket = false
       if @match.save && @match.update(match_params)
@@ -102,7 +120,7 @@ class MatchesController < ApplicationController
 
   private
     def match_params
-      params.require(:match).permit(:hours, :minutes, :am_pm, :best_of, :acpt_team_wins, :acpt_team_losses, :acpt_team_reported,
+      params.require(:match).permit(:hours, :minutes, :am_pm, :best_of, :mlg_rules, :acpt_team_wins, :acpt_team_losses, :acpt_team_reported,
         :chlg_team_reported, :chlg_team_wins, :chlg_team_losses)
     end
     def find_team
@@ -113,6 +131,9 @@ class MatchesController < ApplicationController
     end
     def find_losing_team(team_id)
       @losing_team = Team.find(team_id)
+    end
+    def find_setting
+      @setting = Setting.where(ladder_id: @match.ladder_id).where(mlg_rules: @match.mlg_rules)
     end
     def find_match
       @match = Match.find(params[:id])

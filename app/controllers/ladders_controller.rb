@@ -11,16 +11,16 @@ class LaddersController < ApplicationController
     @ladder = Ladder.new(ladder_params)
     @ladder.game_id = @game.id
 
-    if @ladder.save!
-      redirect_to root_path
+    if @ladder.save
+      redirect_to platform_game_path(@platform.id,@game.id)
     else
-      redirect_to new_user_session_path
+      #fail message
     end
   end
 
   def destroy
     @ladder.destroy
-    redirect_to root_path
+    redirect_to platform_game_path(@platform.id,@game.id)
   end
 
 

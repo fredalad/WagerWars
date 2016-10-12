@@ -15,7 +15,7 @@ class GamesController < ApplicationController
     @game.platform_id = @platform.id
 
     if @game.save
-      redirect_to root_path
+      redirect_to platform_path(@platform.id)
     else
       render 'new'
     end
@@ -23,7 +23,7 @@ class GamesController < ApplicationController
 
   def destroy
     @game.destroy
-    redirect_to root_path
+    redirect_to platform_path(@platform.id)
   end
 
   private

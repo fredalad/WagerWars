@@ -1,0 +1,6 @@
+<%= simple_form_for ([@platform, @game, @ladder, @setting]) do |f| %>
+  <%= f.input :mlg_rules, as: :select %>
+  <%= f.input :map_name %>
+  <%= f.input :game_type %>
+  <%= f.button :submit %>
+<% end %>

@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :platforms do
     resources :games do
       resources :ladders do
+        resources :settings, only: [:new, :create]
         resources :teams, only: [:new,:create]
       end
     end

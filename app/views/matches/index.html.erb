@@ -1,6 +1,6 @@
 <h1><%= link_to "View Team", team_path(@team.id)%></h1>
 <h1><%= link_to "Create Match", new_team_match_path(@team.id)%></h1>
-<h3>Upcoming matches for ladder: fill in</h3>
+<h3>Upcoming matches for ladder: <%=@team.ladder_name%></h3>
 <% if params[:match_status] == "upcoming" %>
   <% if @match.size == 0 %>
     <h1>No upcoming matches</h1>
