@@ -1,21 +1,38 @@
-<% @roster.each do |r| %>
-  <% if @team.leader == current_user.username %>
-    <h1><%=r.username%></h1>
-    <h1><%= link_to "Remove Player", team_user_path(@team, r.id), method: :delete, data: {confirm: "Are you sure?"} %></h1>
+<% if params[:message_stage] != "find_user" %>
+  <% @roster.each do |roster| %>
+    <% if @team.leader == current_user.username %>
+      <h1><%=roster.username%></h1>
+      <h1><%= link_to "Remove Player", team_user_path(@team, roster.id), method: :delete, data: {confirm: "Are you sure?"} %></h1>
     <% end %>
   <% end %>
-<%= form_tag team_users_path, :method => 'get', :id => 'users_search' do %>
+  <%= form_tag team_users_path, :method => 'get', :id => 'users_search' do %>
     <p>
       <%= text_field_tag :search, params[:search] %>
       <%= submit_tag "Search", :name => nil %>
     </p>
+  <% end %>
+<% else %>
+<%= form_tag users_path, :method => 'get', :id => 'users_search' do %>
+    <p>
+      <% if params[:message_stage] == "find_user" %>
+        <%= hidden_field_tag(:message_stage, 'find_user') %>
+      <% end %>
+      <%= text_field_tag :search, params[:search] %>
+      <%= submit_tag "Search", :name => nil %>
+    </p>
+    <% end %>
 <% end %>
+
 <% if @users != nil && @users.size != 0 && %>
   <% @users.each do |user| %>
     <h1><%= user.username%></h1>
     <h1><%= user.email%>
     <h1><%= user.id%>
-    <h1><%= link_to "Invite Player", new_user_message_path(user.id, :method =>'post', :invite => "team_invite", :team_id => @team.id) %>
+    <% if params[:message_stage] == "find_user" %>
+      <h1><%= link_to "Create Message", new_user_message_path(user.id) %>
+    <% else %>
+      <h1><%= link_to "Invite Player", new_user_message_path(user.id, :team_id => @team.id, :message => "invite") %>
+    <% end %>
   <% end %>
 <% elsif @search_flag %>
   <h1> No Users Found</h1>

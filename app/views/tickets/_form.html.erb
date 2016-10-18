@@ -1,9 +1,17 @@
 <%= simple_form_for  ([@team, @match, @ticket]) do |f| %>
-  <%= f.file_field :proof_img1%>
-  <%= f.file_field :proof_img2%>
-  <%= f.file_field :proof_img3%>
-  <%= f.file_field :proof_img4%>
-  <%= f.file_field :proof_img5%>
+  <% if @team.id == @match.chlg_team_id %>
+    <%= f.file_field :chlg_team_img1%>
+    <%= f.file_field :chlg_team_img2%>
+    <%= f.file_field :chlg_team_img3%>
+    <%= f.file_field :chlg_team_img4%>
+    <%= f.file_field :chlg_team_img5%>
+  <% else %>
+    <%= f.file_field :acpt_team_img1%>
+    <%= f.file_field :acpt_team_img2%>
+    <%= f.file_field :acpt_team_img3%>
+    <%= f.file_field :acpt_team_img4%>
+    <%= f.file_field :acpt_team_img5%>
+  <% end %>
   <%= f.submit %>
 <% end %>
 

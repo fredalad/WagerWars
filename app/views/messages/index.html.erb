@@ -1,5 +1,10 @@
 <h1>Your Messages</h1>
-<h1><%=  link_to "Show read messages", user_messages_path(current_user.id, :message => "show_read")%></h1>
+<% if params[:message] == "show_read"%>
+  <h1><%= link_to "Show unread messages", user_messages_path(current_user.id, :message => "show_unread")%></h1>
+<% elsif params[:message] == "show_unread" %>
+  <h1><%= link_to "Show read messages", user_messages_path(current_user.id, :message => "show_read")%></h1>
+<% end %>
+<h1><%= link_to "Create Message", users_path(:message_stage => "find_user")%><h1>
 <% @message.each do |message| %>
   <h1><%= link_to message.subject, user_message_path(@user.id, message.id) %><h1>
 

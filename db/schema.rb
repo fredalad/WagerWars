@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161017235754) do
+ActiveRecord::Schema.define(version: 20161018162634) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20161017235754) do
     t.boolean  "mlg_rules"
     t.boolean  "acpt_team_dispute_reported"
     t.boolean  "chlg_team_dispute_reported"
+    t.integer  "ticket_id"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -105,29 +106,49 @@ ActiveRecord::Schema.define(version: 20161017235754) do
     t.integer  "chlg_team_id"
     t.string   "acpt_team_name"
     t.integer  "acpt_team_id"
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.boolean  "completed"
-    t.string   "proof_img1_file_name"
-    t.string   "proof_img1_content_type"
-    t.integer  "proof_img1_file_size"
-    t.datetime "proof_img1_updated_at"
-    t.string   "proof_img2_file_name"
-    t.string   "proof_img2_content_type"
-    t.integer  "proof_img2_file_size"
-    t.datetime "proof_img2_updated_at"
-    t.string   "proof_img3_file_name"
-    t.string   "proof_img3_content_type"
-    t.integer  "proof_img3_file_size"
-    t.datetime "proof_img3_updated_at"
-    t.string   "proof_img4_file_name"
-    t.string   "proof_img4_content_type"
-    t.integer  "proof_img4_file_size"
-    t.datetime "proof_img4_updated_at"
-    t.string   "proof_img5_file_name"
-    t.string   "proof_img5_content_type"
-    t.integer  "proof_img5_file_size"
-    t.datetime "proof_img5_updated_at"
+    t.string   "acpt_team_img1_file_name"
+    t.string   "acpt_team_img1_content_type"
+    t.integer  "acpt_team_img1_file_size"
+    t.datetime "acpt_team_img1_updated_at"
+    t.string   "acpt_team_img2_file_name"
+    t.string   "acpt_team_img2_content_type"
+    t.integer  "acpt_team_img2_file_size"
+    t.datetime "acpt_team_img2_updated_at"
+    t.string   "acpt_team_img3_file_name"
+    t.string   "acpt_team_img3_content_type"
+    t.integer  "acpt_team_img3_file_size"
+    t.datetime "acpt_team_img3_updated_at"
+    t.string   "acpt_team_img4_file_name"
+    t.string   "acpt_team_img4_content_type"
+    t.integer  "acpt_team_img4_file_size"
+    t.datetime "acpt_team_img4_updated_at"
+    t.string   "acpt_team_img5_file_name"
+    t.string   "acpt_team_img5_content_type"
+    t.integer  "acpt_team_img5_file_size"
+    t.datetime "acpt_team_img5_updated_at"
+    t.string   "chlg_team_img1_file_name"
+    t.string   "chlg_team_img1_content_type"
+    t.integer  "chlg_team_img1_file_size"
+    t.datetime "chlg_team_img1_updated_at"
+    t.string   "chlg_team_img2_file_name"
+    t.string   "chlg_team_img2_content_type"
+    t.integer  "chlg_team_img2_file_size"
+    t.datetime "chlg_team_img2_updated_at"
+    t.string   "chlg_team_img3_file_name"
+    t.string   "chlg_team_img3_content_type"
+    t.integer  "chlg_team_img3_file_size"
+    t.datetime "chlg_team_img3_updated_at"
+    t.string   "chlg_team_img4_file_name"
+    t.string   "chlg_team_img4_content_type"
+    t.integer  "chlg_team_img4_file_size"
+    t.datetime "chlg_team_img4_updated_at"
+    t.string   "chlg_team_img5_file_name"
+    t.string   "chlg_team_img5_content_type"
+    t.integer  "chlg_team_img5_file_size"
+    t.datetime "chlg_team_img5_updated_at"
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

@@ -3,6 +3,14 @@ class ApplicationController < ActionController::Base
 
   before_filter :configure_permitted_parameters, if: :devise_controller?
 
+  def is_admin?(email)
+    if email == "jonsnow@example.com"
+      return true
+    else
+      return false
+    end
+  end
+
   protected
 
     def configure_permitted_parameters

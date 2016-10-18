@@ -1,11 +1,14 @@
 class UsersController < ApplicationController
-  before_action :find_team
+  before_action :find_team, :if => :new_message
   before_action :find_user, only: [:edit, :update, :destroy]
 
   def index
-    @roster = Array.new
-    @team.user_id.each do |value|
-      @roster << User.find(value)
+    if params[:message_stage] != "find_user"
+      @roster = Array.new
+
+      @team.user_id.each do |value|
+        @roster << User.find(value)
+      end
     end
     if params[:search]
       @users = User.search(params[:search])
@@ -47,5 +50,12 @@ class UsersController < ApplicationController
     end
     def find_user
       @user = User.find(params[:id])
+    end
+    def new_message
+      if params[:message_stage] != "find_user"
+        true
+      else
+        false
+      end
     end
 end

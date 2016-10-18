@@ -1,1 +1,39 @@
 <h1>edit tichet</h1>
+<% if user_signed_in? && is_admin?(current_user.email)%>
+  <h1>Challange Team Proof</h1>
+
+  <h1><%=image_tag @ticket.chlg_team_img1.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.chlg_team_img2.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.chlg_team_img3.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.chlg_team_img4.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.chlg_team_img5.url(:ticket_index)%><h1>
+  <h1>Accpeting Team Proof</h1>
+
+  <h1><%=image_tag @ticket.acpt_team_img1.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.acpt_team_img2.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.acpt_team_img3.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.acpt_team_img4.url(:ticket_index)%><h1>
+  <h1><%=image_tag @ticket.acpt_team_img5.url(:ticket_index)%><h1>
+  <%= simple_form_for  ([@team, @match, @ticket]) do |f| %>
+    <%= f.button :submit, name: "winner", value: "chlg_team" %>
+    <%= f.button :submit, name: "winner", value: "acpt_team" %>
+  <% end %>
+
+<% else %>
+  <%= simple_form_for  ([@team, @match, @ticket]) do |f| %>
+    <% if @team.id == @match.chlg_team_id %>
+      <%= f.file_field :chlg_team_img1%>
+      <%= f.file_field :chlg_team_img2%>
+      <%= f.file_field :chlg_team_img3%>
+      <%= f.file_field :chlg_team_img4%>
+      <%= f.file_field :chlg_team_img5%>
+    <% else %>
+      <%= f.file_field :acpt_team_img1%>
+      <%= f.file_field :acpt_team_img2%>
+      <%= f.file_field :acpt_team_img3%>
+      <%= f.file_field :acpt_team_img4%>
+      <%= f.file_field :acpt_team_img5%>
+    <% end %>
+    <%= f.submit %>
+  <% end %>
+<% end %>

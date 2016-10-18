@@ -1,3 +1,10 @@
 <%= simple_form_for  ([@user, @message]) do |f| %>
-  <%= f.button :submit, "Invite Player" %>
+  <% if params[:message] == "invite"%>
+    <%= hidden_field_tag(:message_invite, 'invite') %>
+    <%= f.button :submit, "Invite Player"%>
+  <% else %>
+    <%= f.input :subject %>
+    <%= f.input :body %>
+    <%= f.button :submit, "Send Message" %>
+  <% end %>
 <% end %>

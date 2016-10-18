@@ -115,7 +115,7 @@ class MatchesController < ApplicationController
           else
             @match.disputed = true
             if @match.save
-              redirect_to team_matches_path(@team.id)
+              redirect_to team_path(@team.id)
             end
           end
         else
