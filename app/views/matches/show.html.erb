@@ -3,8 +3,27 @@
   <% @setting.each do |setting|%>
     <h1><%= setting.map_name%>, <%=setting.game_type%></h1>
   <% end %>
-  <h3><%= link_to "Report Score", edit_team_match_path(@team.id, @match.id, :match_status => "report")%></h3>
-  <%else %>
+  <% if @team.id == @match.chlg_team_id %>
+    <% chlg_team = true %>
+  <% else %>
+    <% chlg_team = false %>
+  <%end %>
+  <% if chlg_team %>
+    <% if @match.disputed && !@match.chlg_team_dispute_reported %>
+      <h3><%= link_to "Provide Proof", new_team_match_ticket_path(@team.id, @match.id) %></h3>
+    <% else %>
+      <h3><%= link_to "Report Score", edit_team_match_path(@team.id, @match.id, :match_status => "report")%></h3>
+    <% end %>
+  <% else %>
+    <% if @match.disputed && !@match.acpt_team_dispute_reported %>
+        <h3><%= link_to "Provide Proof", new_team_match_ticket_path(@team.id, @match.id) %></h3>
+      <% else %>
+        <h3><%= link_to "Report Score", edit_team_match_path(@team.id, @match.id, :match_status => "report")%></h3>
+    <% end %>
+  <% end %>
+
+
+<%else %>
   <h3>Waiting for someone to accept</h3>
 <% end %>
 

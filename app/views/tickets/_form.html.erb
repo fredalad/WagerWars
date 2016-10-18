@@ -1,0 +1,9 @@
+<%= simple_form_for  ([@team, @match, @ticket]) do |f| %>
+  <%= f.file_field :proof_img1%>
+  <%= f.file_field :proof_img2%>
+  <%= f.file_field :proof_img3%>
+  <%= f.file_field :proof_img4%>
+  <%= f.file_field :proof_img5%>
+  <%= f.submit %>
+<% end %>
+

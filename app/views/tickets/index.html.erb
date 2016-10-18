@@ -1,0 +1,6 @@
+<h1>Index for tickets</h1>
+<% @ticket.each do |ticket| %>
+
+  <h1><%=link_to "Review Ticket", ticket_path(ticket.id)%><h1>
+<% end %>
+

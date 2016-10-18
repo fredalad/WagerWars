@@ -12,9 +12,10 @@
 <% end %>
 <% if @users != nil && @users.size != 0 && %>
   <% @users.each do |user| %>
+    <h1><%= user.username%></h1>
     <h1><%= user.email%>
     <h1><%= user.id%>
-    <h1><%= link_to "Add Player", new_user_message_path(user.id, :method =>'post', :invite => "team_invite", :team_id => @team.id) %>
+    <h1><%= link_to "Invite Player", new_user_message_path(user.id, :method =>'post', :invite => "team_invite", :team_id => @team.id) %>
   <% end %>
 <% elsif @search_flag %>
   <h1> No Users Found</h1>

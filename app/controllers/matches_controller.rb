@@ -7,6 +7,15 @@ class MatchesController < ApplicationController
     if params[:match_status] == "upcoming"
       @match = Match.where(ladder_id: @team.ladder_id).where(chlg_team_id: @team.id).where("match_time > ?",
       Time.zone.now)
+      if @match.size == 0
+        @match = Match.where(ladder_id: @team.ladder_id).where(acpt_team_id: @team.id).where("match_time > ?",
+        Time.zone.now)
+      end
+    elsif params[:match_status] == "disputed"
+      @match = Match.where(ladder_id: @team.ladder_id).where(chlg_team_id: @team.id).where(disputed: true)
+      if @match.size == 0
+        @match = Match.where(ladder_id: @team.ladder_id).where(acpt_team_id: @team.id).where(disputed: true)
+      end
     else
       @match = Match.where(ladder_id: @team.ladder_id).where(accepted: false).where("match_time > ?",
       Time.zone.now)
@@ -22,6 +31,8 @@ class MatchesController < ApplicationController
     @match.ladder_id = @team.ladder_id
     @match.chlg_team_name = @team.name
     @match.chlg_team_id = @team.id
+    @match.acpt_team_dispute_reported = false
+    @match.chlg_team_dispute_reported = false
     @match.accepted = false
     @match.challange = false
     @match.completed = false
@@ -55,6 +66,7 @@ class MatchesController < ApplicationController
       @setting << Setting.find(value)
     end
   end
+
   def edit
     #render 'show'
   end
@@ -81,7 +93,6 @@ class MatchesController < ApplicationController
         if @match.chlg_team_reported && @match.acpt_team_reported
           if @match.acpt_team_wins == @match.chlg_team_wins
             ticket = true
-            redirect_to root_path
           elsif @match.acpt_team_wins >= @match.chlg_team_losses
             #accapting team wins
             find_winning_team(@match.acpt_team_id)
@@ -99,6 +110,11 @@ class MatchesController < ApplicationController
           if !ticket
             @match.completed = true
             if @winning_team.save && @losing_team.save && @match.save
+              redirect_to team_matches_path(@team.id)
+            end
+          else
+            @match.disputed = true
+            if @match.save
               redirect_to team_matches_path(@team.id)
             end
           end

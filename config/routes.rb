@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   resources :users do
     resources :messages
   end
+  resources :tickets
 
  # root 'users#index'
   resources :teams do
-    resources :matches
+    resources :matches do
+      resources :tickets
+    end
     resources :users
   end
 
