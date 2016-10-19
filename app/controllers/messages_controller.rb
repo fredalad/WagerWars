@@ -5,9 +5,9 @@ class MessagesController < ApplicationController
 
   def index
     if params[:message] == "show_read"
-      @message = Message.where(desination_user_id: current_user.id)
+      @message = Message.where(destination_user_id: current_user.id)
     else
-      @message = Message.where(desination_user_id: current_user.id, read: false)
+      @message = Message.where(destination_user_id: current_user.id, read: false)
     end
   end
 
@@ -29,15 +29,19 @@ class MessagesController < ApplicationController
       @message.team_id = @team.id
       @message.subject = "Team Invite"
       @message.body = "Team " + @team.name.to_s + " wants you to join their team"
+      @message.team_invite = true
     else
       @message = Message.new(message_params)
+      @message.team_invite = false
+
     end
       @message.user_id = current_user.id
       @message.source_user_id = current_user.id
       @message.source_username = current_user.username
-      @message.desination_user_id = @user.id
-      @message.desination_username = @user.username
+      @message.destination_user_id = @user.id
+      @message.destination_username = @user.username
       @message.read = false
+
     if @message.save
       redirect_to user_messages_path(current_user.id)
     end
@@ -55,8 +59,8 @@ class MessagesController < ApplicationController
 
   private
     def message_params
-      params.require(:message).permit(:source_user_id, :desination_user_id,
-       :source_username, :desination_username, :subject, :body, :message_invite)
+      params.require(:message).permit(:source_user_id, :destination_user_id,
+       :source_username, :destination_username, :subject, :body, :message_invite)
     end
 
     def find_message

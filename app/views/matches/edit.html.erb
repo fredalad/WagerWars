@@ -1,5 +1,7 @@
 <h1>Edit Match</h1>
-<h1><%= params.inspect%></h1>
+<%if params[:error] == "invalid_report"%>
+  <h1>Report must have majority winner</h1>
+<% end %>
 <% if params[:match_status] == "report" %>
 <%= simple_form_for ([@team, @match]) do |f| %>
     <% if @match.chlg_team_id == @team.id %>

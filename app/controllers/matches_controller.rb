@@ -5,11 +5,9 @@ class MatchesController < ApplicationController
 
   def index
     if params[:match_status] == "upcoming"
-      @match = Match.where(ladder_id: @team.ladder_id).where(chlg_team_id: @team.id).where("match_time > ?",
-      Time.zone.now)
+      @match = Match.where(ladder_id: @team.ladder_id).where(chlg_team_id: @team.id).where(accepted: true).where(completed: false)
       if @match.size == 0
-        @match = Match.where(ladder_id: @team.ladder_id).where(acpt_team_id: @team.id).where("match_time > ?",
-        Time.zone.now)
+        @match = Match.where(ladder_id: @team.ladder_id).where(acpt_team_id: @team.id).where(accepted: true).where(completed: false)
       end
     elsif params[:match_status] == "disputed"
       @match = Match.where(ladder_id: @team.ladder_id).where(chlg_team_id: @team.id).where(disputed: true)
@@ -34,6 +32,8 @@ class MatchesController < ApplicationController
     @match.chlg_team_id = @team.id
     @match.acpt_team_dispute_reported = false
     @match.chlg_team_dispute_reported = false
+    @match.ladder_match = true
+    @match.tournament_match = false
     @match.accepted = false
     @match.challange = false
     @match.completed = false
@@ -94,13 +94,13 @@ class MatchesController < ApplicationController
         if @match.chlg_team_reported && @match.acpt_team_reported
           if @match.acpt_team_wins == @match.chlg_team_wins
             ticket = true
-          elsif @match.acpt_team_wins >= @match.chlg_team_losses
+          elsif @match.acpt_team_wins > @match.chlg_team_losses
             #accapting team wins
             find_winning_team(@match.acpt_team_id)
             find_losing_team(@match.chlg_team_id)
             @winning_team.wins += 1
             @losing_team.losses += 1
-          elsif @match.chlg_team_wins >= @match.acpt_team_losses
+          elsif @match.chlg_team_wins > @match.acpt_team_losses
             #challange team wins
             find_winning_team(@match.chlg_team_id)
             find_losing_team(@match.acpt_team_id)

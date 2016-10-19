@@ -1,0 +1,7 @@
+<%= simple_form_for @tournament do |f| %>
+  <%= f.input :name %>
+  <%= f.input :game_id, :collection => @game, :include_blank => false %>
+  <%= f.input :team_count, :collection => [4, 8, 16, 32, 64], :include_blank => false %>
+  <%= f.input :cash_prize%>
+  <%= f.button :submit %>
+<% end %>

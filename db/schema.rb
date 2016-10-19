@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019164059) do
+ActiveRecord::Schema.define(version: 20161019183252) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -57,20 +57,25 @@ ActiveRecord::Schema.define(version: 20161019164059) do
     t.boolean  "chlg_team_dispute_reported"
     t.integer  "ticket_id"
     t.integer  "game_id"
+    t.boolean  "ladder_match"
+    t.boolean  "tournament_match"
+    t.integer  "tournament_id"
+    t.integer  "next_match_id"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "source_user_id"
-    t.integer  "desination_user_id"
+    t.integer  "destination_user_id"
     t.string   "source_username"
-    t.string   "desination_username"
+    t.string   "destination_username"
     t.string   "subject"
-    t.text     "body",                limit: 65535
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
+    t.text     "body",                 limit: 65535
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "user_id"
     t.integer  "team_id"
     t.boolean  "read"
+    t.boolean  "team_invite"
   end
 
   create_table "platforms", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -159,7 +164,7 @@ ActiveRecord::Schema.define(version: 20161019164059) do
     t.integer  "team_count"
     t.string   "game_name"
     t.integer  "game_id"
-    t.decimal  "case_prize", precision: 8, scale: 2
+    t.decimal  "cash_prize", precision: 8, scale: 2
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
