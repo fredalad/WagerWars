@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   end
   resources :tickets
 
+  resources :tournaments
+
  # root 'users#index'
   resources :teams do
     resources :matches do

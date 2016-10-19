@@ -50,6 +50,7 @@
             <% end %>
           <% if user_signed_in? && is_admin?(current_user.email) %>
             <li><%= link_to "Add Platform", new_platform_path %></li>
+            <li><%= link_to "Create Tournamnt", new_tournament_path%></li>
           <% end %>
 
         </ul>

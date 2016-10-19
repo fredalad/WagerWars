@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018162634) do
+ActiveRecord::Schema.define(version: 20161019164059) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20161018162634) do
     t.boolean  "acpt_team_dispute_reported"
     t.boolean  "chlg_team_dispute_reported"
     t.integer  "ticket_id"
+    t.integer  "game_id"
   end
 
   create_table "messages", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
@@ -149,6 +150,16 @@ ActiveRecord::Schema.define(version: 20161018162634) do
     t.string   "chlg_team_img5_content_type"
     t.integer  "chlg_team_img5_file_size"
     t.datetime "chlg_team_img5_updated_at"
+  end
+
+  create_table "tournaments", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
+    t.string   "name"
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
+    t.integer  "team_count"
+    t.string   "game_name"
+    t.integer  "game_id"
+    t.decimal  "case_prize", precision: 8, scale: 2
   end
 
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

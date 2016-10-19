@@ -29,6 +29,7 @@ class MatchesController < ApplicationController
   def create
     @match = Match.new(match_params)
     @match.ladder_id = @team.ladder_id
+    @match.game_id = @ladder.game_id
     @match.chlg_team_name = @team.name
     @match.chlg_team_id = @team.id
     @match.acpt_team_dispute_reported = false
@@ -53,7 +54,7 @@ class MatchesController < ApplicationController
     #  redirect_to new_team_match_path(@team.id, :error => "roster_size")
     #################################################################
 
-     if @match.save # should be else if when above is uncommented
+     if @match.save! # should be else if when above is uncommented
       redirect_to team_matches_path(@team.id)
      else
       redirect_to root_path
