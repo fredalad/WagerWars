@@ -11,6 +11,14 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def find_power_of_two(num, count)
+    if num == 1
+      return count
+    else
+      return find_power_of_two(num / 2, count + 1)
+    end
+  end
+
   protected
 
     def configure_permitted_parameters
