@@ -14,6 +14,11 @@ class MatchesController < ApplicationController
       if @match.size == 0
         @match = Match.where(ladder_id: @team.ladder_id).where(acpt_team_id: @team.id).where(disputed: true)
       end
+    elsif params[:match_type] == "tournament"
+      @match = Match.where(chlg_team_id: @team.id).where(tournament_match: true).where("match_time > ?", Time.zone.now)
+      if @match.size == 0
+        @match = Match.where(acpt_team_id: @team.id).where(tournament_match: true).where("match_time > ?", Time.zone.now)
+      end
     else
       @match = Match.where(ladder_id: @team.ladder_id).where(accepted: false).where("match_time > ?",
       Time.zone.now)
@@ -94,23 +99,61 @@ class MatchesController < ApplicationController
         if @match.chlg_team_reported && @match.acpt_team_reported
           if @match.acpt_team_wins == @match.chlg_team_wins
             ticket = true
-          elsif @match.acpt_team_wins > @match.chlg_team_losses
+          elsif @match.acpt_team_wins > @match.chlg_team_wins
             #accapting team wins
             find_winning_team(@match.acpt_team_id)
             find_losing_team(@match.chlg_team_id)
-            @winning_team.wins += 1
-            @losing_team.losses += 1
-          elsif @match.chlg_team_wins > @match.acpt_team_losses
+            if @match.tournament_match == true
+              if @match.next_match_id == -1
+                #award prize
+              end
+              @next_match = Match.find(@match.next_match_id)
+
+              if @next_match.chlg_team_id == nil
+                @next_match.chlg_team_id = @winning_team.id
+                @next_match.chlg_team_name = @winning_team.name
+
+              elsif @next_match.acpt_team_id == nil
+                @next_match.acpt_team_id = @winning_team.id
+                @next_match.acpt_team_name = @winning_team.name
+
+              end
+            else
+              @winning_team.wins += 1
+              @losing_team.losses += 1
+            end
+          elsif @match.chlg_team_wins > @match.acpt_team_wins
             #challange team wins
             find_winning_team(@match.chlg_team_id)
             find_losing_team(@match.acpt_team_id)
-            @winning_team.wins += 1
-            @losing_team.losses += 1
 
+            if @match.tournament_match == true
+              if @match.next_match_id == -1
+                #award prize
+              end
+              @next_match = Match.find(@match.next_match_id)
+
+              if @next_match.chlg_team_id == nil
+                @next_match.chlg_team_id = @winning_team.id
+                @next_match.chlg_team_name = @winning_team.name
+
+              elsif @next_match.acpt_team_id == nil
+                @next_match.acpt_team_id = @winning_team.id
+                @next_match.acpt_team_name = @winning_team.name
+
+              end
+            else
+              @winning_team.wins += 1
+              @losing_team.losses += 1
+            end
           end
           if !ticket
             @match.completed = true
-            if @winning_team.save && @losing_team.save && @match.save
+
+            if @match.tournament_match && @match.save && @next_match.save
+              redirect_to team_matches_path(@team.id)
+
+            elsif @winning_team.save && @losing_team.save && @match.save
               redirect_to team_matches_path(@team.id)
             end
           else
@@ -148,6 +191,9 @@ class MatchesController < ApplicationController
     end
     def find_losing_team(team_id)
       @losing_team = Team.find(team_id)
+    end
+    def find_next_match(match_id)
+      @next_match = Match.find(3784)
     end
     def find_setting
       @setting = Setting.where(ladder_id: @match.ladder_id).where(mlg_rules: @match.mlg_rules)

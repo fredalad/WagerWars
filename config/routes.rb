@@ -9,8 +9,7 @@ Rails.application.routes.draw do
   resources :tickets
 
   resources :tournaments
-
- # root 'users#index'
+  # root 'users#index'
   resources :teams do
     resources :matches do
       resources :tickets

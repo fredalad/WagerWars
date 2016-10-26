@@ -13,6 +13,9 @@
       <%= f.input :acpt_team_losses, :collection => 0..@match.best_of.to_i - 1, :include_blank => false %>
       <%= f.hidden_field :acpt_team_reported, :value => true %>
     <% end %>
+    <% if params[:match_type] == "tournament" %>
+      <% hidden_field_tag(:match_type, 'tournament')%>
+    <% end %>
     <%= hidden_field_tag(:match_status, 'report') %>
     <%= f.button :submit, "Report Score"%>
   <% end %>

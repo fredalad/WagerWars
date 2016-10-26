@@ -1,0 +1,5 @@
+<h1>Join Tournament</h1>
+<%= simple_form_for  ([@tournament]) do |f| %>
+  <%= f.input :team_id, :collection => @team, :include_blank => false %>
+  <%= f.button :submit, "Join tournament" %>
+<% end %>

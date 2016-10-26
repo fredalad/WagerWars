@@ -1,0 +1,6 @@
+<h1>All Tournaments</h1>
+<% @tournament.each do |tournament| %>
+  <h3><%= tournament.name %></h3>
+  <%= link_to "Show tournament", tournament_path(tournament.id)%>
+  <%= link_to "Join tournament", edit_tournament_path(tournament.id)%>
+<% end %>

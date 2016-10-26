@@ -1,0 +1,21 @@
+<% total_matches = @match.count %>
+<% round_switch_count = (@match.count / 2) + 1%>
+<% count = 0 %>
+<% @match.each do |match| %>
+  <% if count == round_switch_count %>
+    <% round_switch_count = round_switch_count / 2%>
+    <%count = 0 %>
+    <br>
+  <% end %>
+  <% if match.chlg_team_name == nil %>
+    <%= match.next_match_id %>
+  <% else %>
+    <h3><%= match.chlg_team_name%></h3>
+  <% end %>
+  <!% if match.acpt_team_name == nil %>
+     <!%= match.next_match_id %>
+  <!% else %>
+    <!h3><%= match.acpt_team_name%></h3>
+  <!% end %>
+  <% count += 1%>
+<% end %>

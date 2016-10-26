@@ -2,6 +2,10 @@
   <%= f.input :name %>
   <%= f.input :game_id, :collection => @game, :include_blank => false %>
   <%= f.input :team_count, :collection => [4, 8, 16, 32, 64], :include_blank => false %>
+  <%= f.text_field :date, "data-provide" => 'datepicker' %>
+  <%= f.input :hours, :collection => 1..12, :include_blank => false %>
+  <%= f.input :minutes, :collection => (0..45).select {|x| x % 15 == 0}, :include_blank => false %>
+  <%= f.input :am_pm, :collection => ['AM', 'PM'], :include_blank => false %>
   <%= f.input :cash_prize%>
   <%= f.button :submit %>
 <% end %>

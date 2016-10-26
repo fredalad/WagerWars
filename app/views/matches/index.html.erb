@@ -19,6 +19,14 @@
       <h3><%= link_to "View disputed Match", team_match_path(@team.id, match.id, :match_status => "disputed")%></h3>
     <% end %>
   <% end %>
+<%elsif params[:match_type] == "tournament" %>
+<% if @match.size == 0 %>
+    <h1>You have no tournament matches</h1>
+  <% else %>
+    <% @match.each do |match| %>
+      <h3><%= link_to "View tournament Match", team_match_path(@team.id, match.id, :match_type => "tournament")%></h3>
+    <% end %>
+  <% end %>
 <% else %>
   <h1><%= link_to "Create Match", new_team_match_path(@team.id)%></h1>
   <% if @match.size == 0 %>
