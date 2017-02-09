@@ -19,6 +19,8 @@ class MatchesController < ApplicationController
       if @match.size == 0
         @match = Match.where(acpt_team_id: @team.id).where(tournament_match: true).where("match_time > ?", Time.zone.now)
       end
+    elsif params[:match_status] == "completed"
+        @match = Match.where(chlg_team_id: @team.id).or(Match.where(acpt_team_id: @team.id)).where(completed: true)
     else
       @match = Match.where(ladder_id: @team.ladder_id).where(accepted: false).where("match_time > ?",
       Time.zone.now)

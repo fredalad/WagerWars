@@ -9,4 +9,5 @@
 <h2><%= link_to "View Upcoming Matches", team_matches_path(@team.id, :match_status => "upcoming") %></h2>
 <h2><%= link_to "View Disputed Matches", team_matches_path(@team.id,:match_status => "disputed") %></h2>
 <h2><%= link_to "View Tournament Matches", team_matches_path(@team.id,:match_type => "tournament") %></h2>
+<h2><%= link_to "View Match History", team_matches_path(@team.id,:match_status => "completed") %></h2>
 <h3><%= link_to "Destroy", team_path(@team), method: :delete, data: {confirm: "Are you sure?"} %> </h3>
