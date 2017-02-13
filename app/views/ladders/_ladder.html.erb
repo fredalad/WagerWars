@@ -6,5 +6,5 @@
 
   <%= link_to "Create settings", new_platform_game_ladder_setting_path(@platform.id, @game.id, ladder.id) %>
 
-  <%= link_to "Destroy", platform_game_ladder_path(@platform, @game, ladder), method: :delete, data: {confirm: "Are you sure"} %>
+  <%= link_to "Delete Ladder", platform_game_ladder_path(@platform, @game, ladder), method: :delete, data: {confirm: "Are you sure"} %>
 <% end %>

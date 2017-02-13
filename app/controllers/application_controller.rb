@@ -23,8 +23,9 @@ class ApplicationController < ActionController::Base
 
     def configure_permitted_parameters
       devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username,
-        :user_icon, :email, :password, :time_zone) }
+        :email, :password, :time_zone) }
       devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:username,
-        :email, :password, :current_password, :user_icon, :time_zone) }
+        :email, :password, :current_password, :user_icon, :time_zone, :xbox_gt,
+        :ps4_gt, :lol_summoner_name) }
     end
 end

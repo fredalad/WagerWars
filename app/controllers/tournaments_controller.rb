@@ -113,8 +113,8 @@ class TournamentsController < ApplicationController
           current_node.left = generate_match(depth - 1, id, time)
           current_node.right = generate_match(depth - 1, id, time)
         end
-      elsif depth > 0
 
+      elsif depth > 0
         @match = Match.new
         @match.next_match_id = match_id
         @match.tournament_id = @tournament.id

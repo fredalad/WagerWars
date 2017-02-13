@@ -12,7 +12,7 @@ class LaddersController < ApplicationController
     @ladder.game_id = @game.id
 
     if @ladder.save
-      redirect_to platform_game_path(@platform.id,@game.id)
+      redirect_to platform_game_path(@platform.id, @game.id)
     else
       #fail message
     end

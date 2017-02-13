@@ -1,11 +1,12 @@
-<%= params.inspect%>
 <%= simple_form_for  ([@user, @message]) do |f| %>
   <% if params[:message] == "invite"%>
+    <h1>Invite Player</h1>
     <%= hidden_field_tag(:message_invite, 'invite') %>
     <%= f.button :submit, "Invite Player"%>
   <% else %>
+  <h1>Create Message</h1>
     <%= f.input :subject %>
-    <%= f.input :body %>
+    <%= f.input :body, required: true%>
     <%= f.button :submit, "Send Message" %>
   <% end %>
 <% end %>

@@ -17,7 +17,7 @@
       <% if params[:message_stage] == "find_user" %>
         <%= hidden_field_tag(:message_stage, 'find_user') %>
       <% end %>
-      <%= text_field_tag :search, params[:search] %>
+      <%= text_field_tag :search, params[:search], placeholder: 'Enter Username' %>
       <%= submit_tag "Search", :name => nil %>
     </p>
     <% end %>
@@ -26,8 +26,6 @@
 <% if @users != nil && @users.size != 0 && %>
   <% @users.each do |user| %>
     <h1><%= user.username%></h1>
-    <h1><%= user.email%>
-    <h1><%= user.id%>
     <% if params[:message_stage] == "find_user" %>
       <h1><%= link_to "Create Message", new_user_message_path(user.id) %>
     <% else %>
