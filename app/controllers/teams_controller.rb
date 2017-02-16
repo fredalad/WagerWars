@@ -12,6 +12,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params)
     @team.ladder_id = @ladder.id
     @team.ladder_name = @ladder.name
+    @team.min_player_count = @ladder.min_player_count
+    @team.max_player_count = @ladder.max_player_count
     @team.game_id = @ladder.game_id
     @team.user_id << current_user.id
     @team.wins = 0

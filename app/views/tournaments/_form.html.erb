@@ -1,5 +1,5 @@
 <%= simple_form_for @tournament do |f| %>
-  <%= f.input :name %>
+  <%= f.input :name, required: true %>
   <%= f.input :game_id, :collection => @game, :include_blank => false %>
   <%= f.input :team_count, :collection => [4, 8, 16, 32, 64], :include_blank => false %>
   <%= f.text_field :date, "data-provide" => 'datepicker' %>

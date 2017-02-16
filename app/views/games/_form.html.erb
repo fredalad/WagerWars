@@ -1,5 +1,5 @@
 <%= simple_form_for ([@platform, @platform.games.build]) do |f| %>
-  <%= f.file_field :game_img%>
-  <%= f.input :name %>
+  <%= f.file_field :game_img, required: true%>
+  <%= f.input :name, required: true%>
   <%= f.button :submit %>
 <% end %>

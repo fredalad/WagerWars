@@ -1,7 +1,7 @@
 class MatchesController < ApplicationController
   before_action :find_team
   before_action :find_match, only: [:show, :edit, :destroy, :update]
-  before_action :find_ladder, only: [:create]
+  before_action :find_ladder, only: [:create, :new]
 
   def index
     if params[:match_status] == "upcoming"
@@ -183,7 +183,7 @@ class MatchesController < ApplicationController
   private
     def match_params
       params.require(:match).permit(:hours, :minutes, :am_pm, :best_of, :mlg_rules, :acpt_team_wins, :acpt_team_losses, :acpt_team_reported,
-        :chlg_team_reported, :chlg_team_wins, :chlg_team_losses)
+        :chlg_team_reported, :chlg_team_wins, :chlg_team_losses, :match_player_count, chlg_player_names: [])
     end
     def find_team
       @team = Team.find(params[:team_id])

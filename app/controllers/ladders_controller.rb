@@ -23,10 +23,10 @@ class LaddersController < ApplicationController
     redirect_to platform_game_path(@platform.id,@game.id)
   end
 
-
   private
     def ladder_params
-      params.require(:ladder).permit(:game_id, :name, :match_player_count)
+      params.require(:ladder).permit(:game_id, :name, :min_player_count,
+        :max_player_count)
     end
     def find_platform
       @platform = Platform.find(params[:platform_id])

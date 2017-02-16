@@ -36,6 +36,8 @@ class TournamentsController < ApplicationController
   end
 
   def edit
+    #If team count is 0 or they dont have any valid teams make button for them
+    # to create one
     @team = Array.new
     current_user.team_id.each do |value|
       @team << Team.find(value)
@@ -132,7 +134,6 @@ class TournamentsController < ApplicationController
       end
     end
 end
-
 
 class Node
   attr_accessor :data, :left, :right
