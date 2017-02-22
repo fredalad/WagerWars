@@ -21,6 +21,7 @@ class UsersController < ApplicationController
 
   def update
     @team.user_id << @user.id
+    @team.username << @user.username
     @team.roster_count += 1
     @user.team_id << @team.id
     if @user.team_count == nil
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
       @user.team_count += 1
     end
     if @team.save && @user.save
-      redirect_to root_path
+      redirect_to team_path(@team.id)
     else
       render 'edit'
     end
@@ -37,8 +38,10 @@ class UsersController < ApplicationController
   def destroy
     @user.team_id.delete(@team.id)
     @team.user_id.delete(@user.id)
+    @team.username.delete(@user.username)
+    @team.roster_count -= 1
     if @team.save && @user.save
-      redirect_to root_path
+      redirect_to (:back)
     else
       render 'edit'
     end

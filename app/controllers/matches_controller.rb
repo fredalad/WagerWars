@@ -33,41 +33,45 @@ class MatchesController < ApplicationController
 
   def create
     @match = Match.new(match_params)
-    @match.ladder_id = @team.ladder_id
-    @match.game_id = @ladder.game_id
-    @match.chlg_team_name = @team.name
-    @match.chlg_team_id = @team.id
-    @match.acpt_team_dispute_reported = false
-    @match.chlg_team_dispute_reported = false
-    @match.ladder_match = true
-    @match.tournament_match = false
-    @match.accepted = false
-    @match.challange = false
-    @match.completed = false
-    @match.disputed = false
-    @match.hours = @match.hours.to_i
-    if (@match.am_pm == 'PM' && @match.hours != 12) || (@match.am_pm == 'AM' && @match.hours == 12)
-      @match.hours += 12
+    if @match.chlg_player_names.size != @match.match_player_count
+      redirect_to new_team_match_path(@team.id, :error => "player_count")
+    else
+      @match.ladder_id = @team.ladder_id
+      @match.game_id = @ladder.game_id
+      @match.chlg_team_name = @team.name
+      @match.chlg_team_id = @team.id
+      @match.acpt_team_dispute_reported = false
+      @match.chlg_team_dispute_reported = false
+      @match.ladder_match = true
+      @match.tournament_match = false
+      @match.accepted = false
+      @match.challange = false
+      @match.completed = false
+      @match.disputed = false
+      @match.hours = @match.hours.to_i
+      if (@match.am_pm == 'PM' && @match.hours != 12) || (@match.am_pm == 'AM' && @match.hours == 12)
+        @match.hours += 12
+      end
+      the_offset = Time.now.in_time_zone(current_user.time_zone).utc_offset
+      @match.match_time = Time.new(Time.zone.now.year.to_i,
+                           Time.zone.now.month.to_i,
+                           Time.zone.now.day,
+                           @match.hours,
+                           @match.minutes.to_i, 0, the_offset)
+
+      ##################comented for testing ###################3
+      #if @team.roster_count < @ladder.match_player_count
+      #  redirect_to new_team_match_path(@team.id, :error => "roster_size")
+      #################################################################
+
+       if @match.save! # should be else if when above is uncommented
+        redirect_to team_matches_path(@team.id)
+       else
+        redirect_to root_path
+       end
     end
-    the_offset = Time.now.in_time_zone(current_user.time_zone).utc_offset
-    @match.match_time = Time.new(Time.zone.now.year.to_i,
-                         Time.zone.now.month.to_i,
-                         Time.zone.now.day,
-                         @match.hours,
-                         @match.minutes.to_i, 0, the_offset)
-
-    ##################comented for testing ###################3
-    #if @team.roster_count < @ladder.match_player_count
-    #  redirect_to new_team_match_path(@team.id, :error => "roster_size")
-    #################################################################
-
-     if @match.save! # should be else if when above is uncommented
-      redirect_to team_matches_path(@team.id)
-     else
-      redirect_to root_path
-     end
-
   end
+
   def show
     @setting = Array.new
     @match.setting_id.each do |value|

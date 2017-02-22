@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170216221208) do
+ActiveRecord::Schema.define(version: 20170222191818) do
 
   create_table "games", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|
     t.integer  "platform_id"
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20170216221208) do
     t.integer  "game_id"
     t.integer  "min_player_count"
     t.integer  "max_player_count"
+    t.text     "username",         limit: 65535
   end
 
   create_table "tickets", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=latin1" do |t|

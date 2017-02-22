@@ -1,10 +1,10 @@
-<% if params[:error] == "roster_size" %>
-  <h1>Your Roster is to small for this ladder</h1>
+<% if params[:error] == "player_count" %>
+  <h3>Error: Please select the correct number of players</h3>
 <% end %>
 
 <%= simple_form_for  ([@team, @match]) do |f| %>
   <%= f.input :match_player_count, collection: @ladder.min_player_count..@ladder.max_player_count, :include_blank => false%>
-  <%= f.input :chlg_player_names, collection:  ["AM", "PM"], as: :check_boxes, include_hidden: false%>
+  <%= f.input :chlg_player_names, collection:  @team.username, as: :check_boxes, include_hidden: false%>
   <%= f.input :hours, collection: 1..12, :include_blank => false %>
   <%= f.input :minutes, collection: (0..45).select {|x| x % 15 ==0}, :include_blank => false %>
   <%= f.input :am_pm, collection: ['AM', 'PM'], :include_blank => false %>

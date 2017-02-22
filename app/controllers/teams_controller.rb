@@ -16,6 +16,7 @@ class TeamsController < ApplicationController
     @team.max_player_count = @ladder.max_player_count
     @team.game_id = @ladder.game_id
     @team.user_id << current_user.id
+    @team.username << current_user.username
     @team.wins = 0
     @team.losses = 0
     @team.roster_count = 1
@@ -59,7 +60,6 @@ class TeamsController < ApplicationController
       user.save
     end
     @team.destroy
-    redirect_to root_path
   end
 
   private
