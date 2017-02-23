@@ -60,6 +60,7 @@ class TeamsController < ApplicationController
       user.save
     end
     @team.destroy
+    redirect_to team_users_path
   end
 
   private

@@ -57,7 +57,7 @@ class MatchesController < ApplicationController
                            Time.zone.now.month.to_i,
                            Time.zone.now.day,
                            @match.hours,
-                           @match.minutes.to_i, 0, the_offset)
+                           @match.minutes.to_i, 0, the_offset).to_s
 
       ##################comented for testing ###################3
       #if @team.roster_count < @ladder.match_player_count
