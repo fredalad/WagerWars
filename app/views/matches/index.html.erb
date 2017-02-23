@@ -26,9 +26,8 @@
       <h3><%= link_to "View completed Match", team_match_path(@team.id, match.id, :match_status => "completed")%></h3>
     <%else %>
       <% Time.zone = current_user.time_zone%>
-      <%= Time.at(match.match_time).in_time_zone%>
-      <!%= Time.match_time.change(offset: "-9000")%>
-      <h3><%=match.match_time%></h3>
+      <%= Time.at(match.match_time).in_time_zone.strftime("%-d %b %Y, %I:%M %p %Z") %>
+      <!h3><!%=match.match_time%></h3>
       <% if match.chlg_team_id == @team.id || match.acpt_team_id == @team.id %>
         <% if params[:match_status] == "upcoming"%>
           <h3><%= link_to "View Match", team_match_path(@team.id, match.id)%></h3>

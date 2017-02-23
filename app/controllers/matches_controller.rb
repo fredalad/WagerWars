@@ -49,15 +49,30 @@ class MatchesController < ApplicationController
       @match.completed = false
       @match.disputed = false
       @match.hours = @match.hours.to_i
-      if (@match.am_pm == 'PM' && @match.hours != 12) || (@match.am_pm == 'AM' && @match.hours == 12)
-        @match.hours += 12
-      end
       the_offset = Time.now.in_time_zone(current_user.time_zone).utc_offset
-      @match.match_time = Time.new(Time.zone.now.year.to_i,
+      if (@match.am_pm == 'PM' && @match.hours != 12) || (@match.am_pm == 'AM' && @match.hours == 12 && @minutes == '0')
+        @match.hours += 12
+        @match.match_time = Time.new(Time.zone.now.year.to_i,
                            Time.zone.now.month.to_i,
                            Time.zone.now.day,
                            @match.hours,
                            @match.minutes.to_i, 0, the_offset).to_s
+      elsif (@match.am_pm == 'AM' && @match.hours == 12 && @minutes != '0')
+        @match.hours -= 12
+        @match.match_time = Time.new(Time.zone.now.year.to_i,
+                           Time.zone.now.month.to_i,
+                           Time.zone.now.day + 1,
+                           @match.hours,
+                           @match.minutes.to_i, 0, the_offset).to_s
+      else
+        @match.match_time = Time.new(Time.zone.now.year.to_i,
+                           Time.zone.now.month.to_i,
+                           Time.zone.now.day,
+                           @match.hours,
+                           @match.minutes.to_i, 0, the_offset).to_s
+
+      end
+
 
       ##################comented for testing ###################3
       #if @team.roster_count < @ladder.match_player_count
