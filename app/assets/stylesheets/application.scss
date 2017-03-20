@@ -14,5 +14,41 @@
  *= require_self
  *= require bootstrap-datepicker3
  */
+@import url(http://fonts.googleapis.com/css?family=Lora|Ubuntu:300,400,500);
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+@mixin background-tile {
+  box-sizing: border-box;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px 6px #ccc;
+  padding: 1.5em 1.25em;
+}
+
+.btn-custom2 {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #222;
+  padding: 8px 20px;
+  border-radius: 5px;
+  font-family: 'Ubuntu', sans-serif;
+  &:hover {
+    text-decoration: none;
+    background-color: #111;
+    color: #fff;
+    transition: 0.5s;
+  }
+}
+
+.signup-form {
+  @include background-tile;
+
+  h2 {
+    margin-top: 0;
+  }
+
+}
+.strong {
+  text-align: center;
+}

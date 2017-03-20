@@ -1,13 +1,15 @@
 <% if params[:message_stage] != "find_user" %>
+  <h2>Invite Teamates</h2>
   <% @roster.each do |roster| %>
     <% if @team.leader == current_user.username %>
-      <h1><%=roster.username%></h1>
-      <h1><%= link_to "Remove Player", team_user_path(@team, roster.id), method: :delete, data: {confirm: "Are you sure?"} %></h1>
+      <h3><%=roster.username%> <%= link_to "Remove Player",
+      team_user_path(@team, roster.id), method: :delete,
+      data: {confirm: "Are you sure?"} %></h3>
     <% end %>
   <% end %>
   <%= form_tag team_users_path, :method => 'get', :id => 'users_search' do %>
     <p>
-      <%= text_field_tag :search, params[:search] %>
+      <%= text_field_tag :search, params[:search], placeholder: "Enter Username"%>
       <%= submit_tag "Search", :name => nil %>
     </p>
   <% end %>
